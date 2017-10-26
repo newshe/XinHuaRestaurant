@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/title"
+        android:id="@+id/include" />
+    <LinearLayout
+        android:layout_width="110dp"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/include"
+        android:layout_above="@+id/linearLayout"
+        android:id="@+id/linearLayout2"
+        android:orientation="vertical">
+
+        <TextView
+            android:gravity="center"
+            android:text="早餐饮品"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+        <View
+            android:background="#2ea7a9a8"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        <TextView
+            android:text="清淡食品"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+        <View
+            android:background="#2ea7a9a8"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        <TextView
+            android:text="油性食品"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+        <View
+            android:background="#2ea7a9a8"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/linearLayout"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/include"
+        android:layout_toEndOf="@+id/linearLayout2">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <LinearLayout
+        android:background="@color/colorAccent"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/linearLayout"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+
+</RelativeLayout>
