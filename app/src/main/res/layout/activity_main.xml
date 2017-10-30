@@ -4,18 +4,17 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:openDrawer="start"
     tools:context="com.example.zzz.xinhuarestaurant.MainActivity">
 
 
     <fragment
         android:id="@+id/main_fragment"
-        android:name="com.example.zzz.xinhuarestaurant.Fragment.MainFragment"
+        android:name="com.example.zzz.xinhuarestaurant.fragment.MainFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout="@layout/main_xinhua" />
     <fragment
-        android:name="com.example.zzz.xinhuarestaurant.Fragment.LeftFragment"
+        android:name="com.example.zzz.xinhuarestaurant.fragment.LeftFragment"
         android:layout_gravity="left"
         android:background="#fa1515"
         android:layout_width="match_parent"

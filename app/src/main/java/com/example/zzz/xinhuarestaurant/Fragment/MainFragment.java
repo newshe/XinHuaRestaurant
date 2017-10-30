@@ -1,4 +1,4 @@
-package com.example.zzz.xinhuarestaurant.Fragment;
+package com.example.zzz.xinhuarestaurant.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,10 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.example.zzz.xinhuarestaurant.MainActivity;
 import com.example.zzz.xinhuarestaurant.R;
+import com.example.zzz.xinhuarestaurant.bean.TitleName;
 
 /**
  * Created by zzz on 2017/10/25.
@@ -26,20 +26,29 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
     public FragmentManager fragmentManager;
 
+    public String breakFastName[] = {"早餐精选","早餐饮品","清淡食品","油性食品"};
+    public String lunchName[] = {"午餐精选","早餐饮品","清淡食品","油性食品"};
+    public String dinnerName[] = {"晚餐精选","早餐饮品","清淡食品","油性食品"};
+    public Bundle bundle = new Bundle();
+
+    public BreakFastFragment breakFastFragment;
+
+    public TitleName titleName;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.main_xinhua,container,false);
+        titleName = new TitleName();
+        breakFastFragment = new BreakFastFragment();
 
         RelativeLayout breakFast = (RelativeLayout) view.findViewById(R.id.breakfast_main);
         LinearLayout lunch = (LinearLayout) view.findViewById(R.id.lunch_main);
         LinearLayout dinner = (LinearLayout) view.findViewById(R.id.dinner_main);
-
         breakFast.setOnClickListener(this);
         lunch.setOnClickListener(this);
         dinner.setOnClickListener(this);
-
         fragmentManager = getActivity().getSupportFragmentManager();
 
         return view;
@@ -49,30 +58,28 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.breakfast_main:
-                //getFragmentManager().popBackStack();
-                BreakFastFragment breakFastFragment = new BreakFastFragment();
-                FragmentTransaction fragment = fragmentManager.beginTransaction();
-                //fragment.addToBackStack(null).add(R.id.main_fragment,breakFastFragment,"breakfast");
-                fragment.addToBackStack(null).add(R.id.main_fragment,breakFastFragment);
-                fragment.commit();
-                Log.i(TAG, "onClick: ");
-                MainActivity.breakFastIsOpen = true;
+                if (fragmentManager.findFragmentByTag("breakfast") == null) {
+                    getFragmentManager().popBackStack();
+                    FragmentTransaction fragment = fragmentManager.beginTransaction();
+                    fragment.addToBackStack(null).add(R.id.main_fragment,breakFastFragment,"breakfast").commit();
+                    bundle.putStringArray("name",breakFastName);
+                    breakFastFragment.setArguments(bundle);
+                    MainActivity.breakFastIsOpen = true;
+                }
                 break;
             case R.id.lunch_main:
-                //getFragmentManager().popBackStack();
-                Log.i(TAG, "onClick: ");
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                //fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                //为fragment加载显示动画
-                //fragmentTransaction.setCustomAnimations(R.anim.enter_animal,0,0,0);
-                BreakFastFragment anotherRightFragment = new BreakFastFragment();
-                fragmentTransaction.addToBackStack(null).add(R.id.main_fragment,anotherRightFragment,"breakfast").commit();
-                MainActivity.breakFastIsOpen = true;
+                if (fragmentManager.findFragmentByTag("breakfast") == null) {
+                    getFragmentManager().popBackStack();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.addToBackStack(null).add(R.id.main_fragment, breakFastFragment, "breakfast").commit();
+                    MainActivity.breakFastIsOpen = true;
+                    bundle.putStringArray("name", lunchName);
+                    breakFastFragment.setArguments(bundle);
+                }
                 break;
             case R.id.dinner_main:
                 break;
         }
     }
-
 
 }

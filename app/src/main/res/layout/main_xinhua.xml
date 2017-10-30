@@ -1,93 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/main"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:clickable="true"
-        android:background="?android:attr/selectableItemBackground"
-        android:id="@+id/breakfast_main"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        >
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:clickable="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:id="@+id/breakfast_main"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            >
+
+            <LinearLayout
+                android:background="#27f7ce70"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+
+                    android:id="@+id/imageView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/vector_drawable_milk" />
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="早餐"
+                    android:textColor="#aacce6"
+                    android:textSize="35sp" />
+            </LinearLayout>
+
+            <ImageButton
+                android:background="?android:attr/selectableItemBackground"
+                android:layout_margin="15dp"
+                android:src="@drawable/vector_drawable_more"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/imageButton" />
+
+
+        </RelativeLayout>
 
         <LinearLayout
-            android:background="#27f7ce70"
-            android:gravity="center"
-            android:layout_centerInParent="true"
+            android:clickable="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:id="@+id/lunch_main"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <ImageView
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center">
 
-                android:id="@+id/imageView1"
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/vector_drawable_milk" />
+                android:src="@drawable/vector_drawable_sandwich" />
+
             <TextView
-                android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="早餐"
-                android:textColor="#aacce6"
+                android:text="午餐"
+                android:textColor="#e2ae63"
+                android:textSize="35sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/dinner_main"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#fbfcfe"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/vector_drawable_pot" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="晚餐"
+                android:textColor="#d4aa7a"
                 android:textSize="35sp" />
         </LinearLayout>
 
-        <ImageButton
-            android:background="?android:attr/selectableItemBackground"
-            android:layout_margin="15dp"
-            android:src="@drawable/vector_drawable_more"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:id="@+id/imageButton" />
-
-
-    </RelativeLayout>
-
-    <LinearLayout
-        android:clickable="true"
-        android:background="?android:attr/selectableItemBackground"
-        android:id="@+id/lunch_main"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/vector_drawable_sandwich" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="午餐"
-            android:textColor="#e2ae63"
-            android:textSize="35sp" />
-
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/dinner_main"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="#fbfcfe"
-        android:gravity="center">
-
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/vector_drawable_pot" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="晚餐"
-            android:textColor="#d4aa7a"
-            android:textSize="35sp" />
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>

@@ -1,4 +1,4 @@
-package com.example.zzz.xinhuarestaurant.Fragment;
+package com.example.zzz.xinhuarestaurant.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
