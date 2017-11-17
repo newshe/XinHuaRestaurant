@@ -1,0 +1,203 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
+    android:layout_height="match_parent">
+    <!--这是手机图标-->
+    <TextView
+        android:textSize="25sp"
+        android:text="手机验证码"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="65dp" />
+
+    <TextView
+
+        android:textSize="15sp"
+        android:text="已发送验证码至手机177****"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/imageView"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="10dp"
+        android:layout_centerHorizontal="true" />
+    <!--这是验证码或者密码输入区域-->
+    <RelativeLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="80dp">
+
+        <View
+            android:layout_marginLeft="65dp"
+            android:background="@drawable/shape_kuang"
+            android:id="@+id/hour"
+            android:layout_width="48dp"
+            android:layout_height="48dp" />
+
+        <View
+            android:layout_marginLeft="135dp"
+            android:background="@drawable/shape_kuang"
+            android:id="@+id/second"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            />
+        <View
+            android:layout_marginLeft="205dp"
+            android:background="@drawable/shape_kuang"
+            android:id="@+id/minute"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+             />
+
+        <View
+
+            android:layout_marginLeft="-5dp"
+            android:background="@drawable/shape_kuang"
+            android:id="@+id/fore"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+             />
+        <!--黑点1-->
+        <ImageView
+            android:visibility="gone"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="14dp"
+            android:id="@+id/black_yanzhen1"
+            android:src="@drawable/user_black_yanzhen"
+            android:layout_width="20dp"
+            android:layout_height="16dp"
+            android:layout_alignTop="@+id/black_yanzhen3"
+            android:layout_alignLeft="@+id/fore"
+            android:layout_alignStart="@+id/fore" />
+        <TextView
+            android:gravity="center_horizontal"
+            android:textColor="#000000"
+            android:textSize="22sp"
+            android:visibility="visible"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="9dp"
+            android:id="@+id/view_text_1"
+            android:layout_width="20dp"
+            android:layout_height="24dp" />
+        <!--黑点2-->
+        <ImageView
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            android:layout_marginLeft="14dp"
+            android:id="@+id/black_yanzhen2"
+            android:src="@drawable/user_black_yanzhen"
+            android:layout_width="20dp"
+            android:layout_height="16dp"
+            android:layout_alignTop="@+id/black_yanzhen3"
+            android:layout_alignLeft="@+id/hour"
+            android:layout_alignStart="@+id/hour" />
+        <TextView
+            android:textColor="#000000"
+            android:textSize="22sp"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="9dp"
+            android:visibility="visible"
+            android:layout_marginLeft="14dp"
+            android:id="@+id/view_text_2"
+            android:layout_width="20dp"
+            android:layout_height="24dp"
+            android:layout_alignTop="@+id/black_yanzhen3"
+            android:layout_alignLeft="@+id/hour"
+            android:layout_alignStart="@+id/hour" />
+        <!--黑点3-->
+        <ImageView
+            android:visibility="gone"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="14dp"
+            android:id="@+id/black_yanzhen3"
+            android:src="@drawable/user_black_yanzhen"
+            android:layout_width="20dp"
+            android:layout_height="16dp"
+            android:layout_alignTop="@+id/black_yanzhen4"
+            android:layout_alignLeft="@+id/second"
+            android:layout_alignStart="@+id/second" />
+        <TextView
+            android:textColor="#000000"
+            android:textSize="22sp"
+            android:gravity="center_horizontal"
+            android:visibility="visible"
+            android:layout_marginTop="9dp"
+            android:layout_marginLeft="14dp"
+            android:id="@+id/view_text_3"
+            android:layout_width="20dp"
+            android:layout_height="24dp"
+            android:layout_alignTop="@+id/black_yanzhen4"
+            android:layout_alignLeft="@+id/second"
+            android:layout_alignStart="@+id/second" />
+        <!--黑点4-->
+        <ImageView
+            android:visibility="gone"
+            android:layout_marginLeft="14dp"
+            android:id="@+id/black_yanzhen4"
+            android:src="@drawable/user_black_yanzhen"
+            android:layout_width="20dp"
+            android:layout_height="16dp"
+            android:layout_centerVertical="true"
+            android:layout_alignLeft="@+id/minute"
+            android:layout_alignStart="@+id/minute" />
+        <TextView
+            android:layout_marginTop="9dp"
+            android:gravity="center_horizontal"
+            android:textSize="22sp"
+            android:textColor="#000000"
+            android:visibility="visible"
+            android:layout_marginLeft="14dp"
+            android:id="@+id/view_text_4"
+            android:src="@drawable/user_black_yanzhen"
+            android:layout_width="20dp"
+            android:layout_height="24dp"
+            android:layout_alignLeft="@+id/minute"
+            android:layout_alignStart="@+id/minute" />
+    </RelativeLayout>
+
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:text="60秒后重新发送"
+        android:id="@+id/user_end_time"
+        android:textColor="#d2d1d1"
+        android:layout_marginLeft="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        />
+    <!--这是用户输入的手机号-->
+
+
+    <include
+        android:id="@+id/keyboard"
+        layout="@layout/user_phone_keyboard"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"/>
+
+    <Button
+        android:visibility="gone"
+        android:layout_marginTop="-3dp"
+        android:background="@drawable/shape_kuang_pop"
+        android:text="点击重新发送"
+        android:id="@+id/user_end_time_button"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_below="@+id/textView2"
+        android:layout_centerInParent="true" />
+
+</RelativeLayout>

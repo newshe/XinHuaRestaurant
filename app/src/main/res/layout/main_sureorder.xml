@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:background="#fff"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+
+    <View
+        android:visibility="gone"
+        android:background="#910a0a"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
     <include layout="@layout/title"/>
 
@@ -15,11 +23,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp">
         <TextView
-            android:padding="10dp"
+            android:gravity="center"
+            android:layout_marginLeft="10dp"
             android:text="学校"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
+            android:layout_marginLeft="5dp"
+            android:gravity="center"
             android:background="@null"
             android:textCursorDrawable="@null"
             android:textSize="15sp"
@@ -37,11 +48,13 @@
         android:layout_width="match_parent"
         android:layout_height="0dp">
         <TextView
-            android:padding="10dp"
+            android:layout_marginLeft="10dp"
             android:text="栋数"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <EditText
+            android:layout_marginLeft="5dp"
+
             android:background="@null"
             android:textCursorDrawable="@null"
             android:textSize="15sp"
@@ -60,12 +73,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp">
         <TextView
-            android:padding="10dp"
+            android:layout_marginLeft="10dp"
 
             android:text="寝室信息"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <EditText
+            android:layout_marginLeft="5dp"
+
             android:background="@null"
             android:textCursorDrawable="@null"
             android:textSize="15sp"
@@ -78,18 +93,17 @@
         android:layout_weight="1"
         android:layout_marginTop="10dp"
         android:gravity="center_vertical"
-
         android:background="#39d6d2d4"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp">
         <TextView
-            android:padding="10dp"
-
+            android:layout_marginLeft="10dp"
             android:text="联系号码"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <EditText
+            android:layout_marginLeft="5dp"
             android:background="@null"
             android:textCursorDrawable="@null"
             android:textSize="15sp"
@@ -124,21 +138,33 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
 
-        <FrameLayout
-
+        <!--<FrameLayout-->
+            <!--android:background="#0a9fef"-->
+            <!--android:layout_width="110dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:id="@+id/frameLayout"-->
+            <!--android:layout_alignParentEnd="true">-->
+            <!--<Button-->
+                <!--android:layout_gravity="center"-->
+                <!--android:background="?android:attr/selectableItemBackgroundBorderless"-->
+                <!--style="@style/ButtonClick"-->
+                <!--android:text="确认提交"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent" />-->
+        <!--</FrameLayout>-->
+        <RelativeLayout
             android:background="#0a9fef"
             android:layout_width="110dp"
             android:layout_height="match_parent"
             android:id="@+id/frameLayout"
             android:layout_alignParentEnd="true">
             <Button
-                android:layout_gravity="center"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                style="@style/ButtonClick"
-                android:text="确认提交"
+                android:id="@+id/make_sure_end"
+                android:text="完成选择"
+                android:background="?android:attr/selectableItemBackground"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
-        </FrameLayout>
+        </RelativeLayout>
 
         <TextView
             android:paddingRight="15dp"
@@ -147,9 +173,10 @@
             android:textColor="#e7a513"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView3"
+            android:id="@+id/sure_price"
             android:layout_centerVertical="true"
             android:layout_toStartOf="@+id/frameLayout" />
     </RelativeLayout>
+
 
 </LinearLayout>

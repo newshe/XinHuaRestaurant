@@ -12,39 +12,44 @@
         android:layout_height="0dp">
 
         <TextView
-            android:layout_marginTop="20dp"
             android:textSize="20sp"
-            android:textColor="#fff"
-            android:layout_centerHorizontal="true"
-            android:text="清晨的早餐，指引学习的大门"
+            android:text="10月27日—周四"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView2" />
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="30dp"
+            android:id="@+id/textCalendar" />
 
         <TextView
-            android:textColor="#fff"
-            android:textSize="75sp"
-            android:text="H i ~"
+            android:layout_marginTop="20dp"
+            android:textSize="20sp"
+            android:text="多云转晴"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView"
+            android:layout_below="@+id/textCalendar"
+            android:layout_alignStart="@+id/textCalendar"
+            android:id="@+id/textWeather" />
+
+        <TextView
+            android:textSize="20sp"
+            android:text="10 ~ 21°C"
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textWeather"
+            android:layout_alignStart="@+id/textWeather"
+            android:id="@+id/textTemperature" />
+
+        <ImageView
+            android:src="@drawable/ic_sunset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView2"
             android:layout_centerVertical="true"
-            android:layout_alignStart="@+id/textView2" />
-        <ImageView
-            android:src="@drawable/vector_drawable_bread"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView1"
-            android:layout_marginTop="80dp"
-            android:layout_marginRight="70dp"
-            android:layout_alignParentEnd="true" />
-        <ImageView
-            android:src="@drawable/vector_drawable_milk_big"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView"
-            android:layout_marginTop="60dp"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="16dp" />
 
 
     </RelativeLayout>

@@ -1,28 +1,51 @@
 package com.example.zzz.xinhuarestaurant;
 
+import android.graphics.Color;
+import android.os.Build;
+import android.service.notification.StatusBarNotification;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageButton;
+import android.widget.Toast;
+
+import com.example.zzz.xinhuarestaurant.fragment.BreakFastFragment;
+import com.example.zzz.xinhuarestaurant.fragment.MainFragment;
+import com.example.zzz.xinhuarestaurant.util.Util;
 
 public class MainActivity extends AppCompatActivity {
 
     public String TAG = "ppt";
 
+
     public static boolean breakFastIsOpen = false;
 
-    public FragmentManager fragmentManager;
+    public static DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Util.setStatusBarColor(Color.TRANSPARENT,this,Util.TEXT_WHITE);
         setContentView(R.layout.activity_main);
 
-        fragmentManager = getSupportFragmentManager();
 
+        initControl();
     }
 
-    public void exitFragment(){
-        getSupportFragmentManager().popBackStack();
+    private void initControl() {
+        drawerLayout = (DrawerLayout) findViewById(R.id.activity_main);
     }
+
+    public static void setMainBackGround(int color) {
+        drawerLayout.setBackgroundColor(color);
+    }
+
 }
 

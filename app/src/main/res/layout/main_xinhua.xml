@@ -1,34 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#f7ce70"
+
+    android:fitsSystemWindows="true">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
 
         <RelativeLayout
-            android:clickable="true"
-            android:background="?android:attr/selectableItemBackground"
             android:id="@+id/breakfast_main"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            >
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true">
 
             <LinearLayout
-                android:background="#27f7ce70"
-                android:gravity="center"
-                android:layout_centerInParent="true"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:background="#27f7ce70"
+                android:gravity="center">
+
                 <ImageView
 
                     android:id="@+id/imageView1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/vector_drawable_milk" />
+
                 <TextView
                     android:id="@+id/textView1"
                     android:layout_width="wrap_content"
@@ -39,38 +46,45 @@
             </LinearLayout>
 
             <ImageButton
-                android:background="?android:attr/selectableItemBackground"
-                android:layout_margin="15dp"
-                android:src="@drawable/vector_drawable_more"
+                android:id="@+id/openLeftButton"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:id="@+id/imageButton" />
+                android:layout_margin="15dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/vector_drawable_more" />
 
 
         </RelativeLayout>
 
-        <LinearLayout
-            android:clickable="true"
-            android:background="?android:attr/selectableItemBackground"
-            android:id="@+id/lunch_main"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:gravity="center">
+            android:background="@color/colorAccent">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/vector_drawable_sandwich" />
+            <LinearLayout
+                android:id="@+id/lunch_main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:gravity="center">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="午餐"
-                android:textColor="#e2ae63"
-                android:textSize="35sp" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/vector_drawable_sandwich" />
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="午餐"
+                    android:textColor="#e2ae63"
+                    android:textSize="35sp" />
+
+            </LinearLayout>
+        </RelativeLayout>
+
 
         <LinearLayout
             android:id="@+id/dinner_main"

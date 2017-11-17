@@ -8,7 +8,7 @@ public class FoodBean {
 
     public String foodName;
 
-    public FoodBean (String foodName){
+    public void setFoodName (String foodName){
         this.foodName = foodName;
     }
 

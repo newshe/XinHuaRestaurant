@@ -5,6 +5,7 @@
     android:background="#24b3e7"
     android:orientation="horizontal">
 
+
     <TextView
         android:id="@+id/main_title_name"
         android:layout_width="wrap_content"
