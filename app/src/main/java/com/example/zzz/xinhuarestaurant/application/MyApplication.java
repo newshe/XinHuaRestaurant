@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
+import org.litepal.LitePal;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,17 +15,17 @@ import java.util.List;
 
 public class MyApplication extends Application {
 
-    public static List<Integer> numberList = new ArrayList<>();
-    public static List<Integer> numberTwoList = new ArrayList<>();
-    public static List<Integer> numberThreeList = new ArrayList<>();
+    public static List<Double> numberList = new ArrayList<>();
+    public static List<Double> numberTwoList = new ArrayList<>();
+    public static List<Double> numberThreeList = new ArrayList<>();
 
-    public static List<Integer> numberListTwo = new ArrayList<>();
-    public static List<Integer> numberTwoListTwo = new ArrayList<>();
-    public static List<Integer> numberThreeListTwo = new ArrayList<>();
+    public static List<Double> numberListTwo = new ArrayList<>();
+    public static List<Double> numberTwoListTwo = new ArrayList<>();
+    public static List<Double> numberThreeListTwo = new ArrayList<>();
 
-    public static List<Integer> numberListThree = new ArrayList<>();
-    public static List<Integer> numberTwoListThree = new ArrayList<>();
-    public static List<Integer> numberThreeListThree = new ArrayList<>();
+    public static List<Double> numberListThree = new ArrayList<>();
+    public static List<Double> numberTwoListThree = new ArrayList<>();
+    public static List<Double> numberThreeListThree = new ArrayList<>();
 
     //三种食品标题的背景颜色
     public static final int FOOD_TITLE_NAME = 0x66e4dfd6;
@@ -40,18 +42,18 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mcontext = getApplicationContext();
-
+        LitePal.initialize(this);
         initList();
     }
 
     public void initList() {
         for (int i = 0; i < 20; i++) {
-            numberList.add(i,0);
-            numberTwoList.add(i,0);
-            numberThreeList.add(i,0);
-            numberListTwo.add(i,0);
-            numberTwoListTwo.add(i,0);
-            numberThreeListTwo.add(i,0);
+            numberList.add(i,0.0);
+            numberTwoList.add(i,0.0);
+            numberThreeList.add(i,0.0);
+            numberListTwo.add(i,0.0);
+            numberTwoListTwo.add(i,0.0);
+            numberThreeListTwo.add(i,0.0);
         }
     }
 

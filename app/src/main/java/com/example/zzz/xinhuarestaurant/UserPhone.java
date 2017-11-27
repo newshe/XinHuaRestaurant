@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.zzz.xinhuarestaurant.application.MyApplication;
+import com.example.zzz.xinhuarestaurant.db.UserInfo;
 import com.example.zzz.xinhuarestaurant.gson.AssignJson;
 import com.example.zzz.xinhuarestaurant.gson.PhoneJson;
 import com.example.zzz.xinhuarestaurant.util.HttpRequest;
@@ -31,7 +32,10 @@ import com.example.zzz.xinhuarestaurant.util.ToastUtil;
 import com.example.zzz.xinhuarestaurant.util.Util;
 import com.google.gson.Gson;
 
+import org.litepal.crud.DataSupport;
+
 import java.io.IOException;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -52,7 +56,7 @@ public class UserPhone extends AppCompatActivity {
     public static final int PHONE_ISHAVE = 4;
 
     public EditText userEditPhone;
-    public Button registerBtn;
+    //public Button registerBtn; //注册按钮
     public Button userBtnNext;
 
     //手机号码格式
@@ -68,6 +72,17 @@ public class UserPhone extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Util.setStatusBarColor(Color.TRANSPARENT,this,Util.TEXT_BLACK);
+        List<UserInfo> userInfo = DataSupport.findAll(UserInfo.class);
+        for (UserInfo user : userInfo) {
+            if (user.getToken() != null) {
+                Log.i(TAG, "getToken: " + user.getToken());
+                Intent intent = new Intent(this,MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+
+        }
+
         setContentView(R.layout.user_phone_first);
         initControl();
         //获取临时令牌
@@ -77,51 +92,16 @@ public class UserPhone extends AppCompatActivity {
     private void initControl() {
         userEditPhone = (EditText) findViewById(R.id.user_edit_phone);
         userBtnNext = (Button) findViewById(R.id.user_btn_next);
-        registerBtn = (Button) findViewById(R.id.user_btn_register);
-        registerBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(UserPhone.this, UserRegister.class);
-                startActivity(intent);
-            }
-        });
+        //registerBtn = (Button) findViewById(R.id.user_btn_register); //注册按钮
+
+//        registerBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(UserPhone.this, UserRegister.class);
+//                startActivity(intent);
+//            }
+//        });
         userPhoneFormat();
-    }
-
-    public static String cookie;
-    public void getAssignCookie (){
-        HttpRequest.request(MyApplication.HttpUrl.assign_cookie, new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String res = response.body().string();
-                Log.i(TAG, "AssignCookie: " + res);
-                Gson gson = new Gson();
-                AssignJson assignJson = gson.fromJson(res,AssignJson.class);
-                cookie = assignJson.getReturn_info().getToken();
-                getBase64();
-            }
-        });
-    }
-    public String base64;
-    public void getBase64() {
-
-        HttpRequest.request(MyApplication.HttpUrl.getMake_verifyimg(cookie), new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                base64 = response.body().string();
-                Log.i(TAG, "getMake_verifyimg: " + base64);
-            }
-        });
     }
 
     //为edit进行输入判断，是否为合法手机号
@@ -319,19 +299,17 @@ public class UserPhone extends AppCompatActivity {
                     break;
                 case PHONE_ISNULL:
                     Intent inten = new Intent(UserPhone.this,UserPicVerification.class);
-                    inten.putExtra("base64",base64);
-                    inten.putExtra("cookie",cookie);
                     inten.putExtra("phone",Util.getPhoneNumber(userPhoneNumber));
                     closeBackGroundLoading();
                     startActivity(inten);
-
-
+                    finish();
                     break;
                 case PHONE_ISHAVE:
                     Intent intent = new Intent(UserPhone.this,UserPassword.class);
                     intent.putExtra("phone",Util.getPhoneNumber(userPhoneNumber));
                     closeBackGroundLoading();
                     startActivity(intent);
+                    finish();
                     break;
             }
         }

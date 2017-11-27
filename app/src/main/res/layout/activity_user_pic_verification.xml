@@ -4,10 +4,10 @@
     android:layout_height="match_parent">
 
 
-    <ImageButton
-        android:id="@+id/returnPhone"
-        android:layout_width="50dp"
-        android:layout_height="50dp" />
+    <!--<ImageButton-->
+        <!--android:id="@+id/returnPhone"-->
+        <!--android:layout_width="50dp"-->
+        <!--android:layout_height="50dp" />-->
 
     <!--这是验证码-->
     <ImageView

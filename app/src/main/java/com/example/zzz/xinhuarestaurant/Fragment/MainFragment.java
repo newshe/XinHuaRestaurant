@@ -54,6 +54,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         titleName = new TitleName();
         lunchFragment = new LunchFragment();
         breakFastFragment = new BreakFastFragment();
+        dinnerFragment = new DinnerFragment();
         relativeLayout = (RelativeLayout) view.findViewById(R.id.fragment_main);
         RelativeLayout breakFast = (RelativeLayout) view.findViewById(R.id.breakfast_main);
         LinearLayout lunch = (LinearLayout) view.findViewById(R.id.lunch_main);
@@ -92,9 +93,20 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                     bundle.putStringArray("name", lunchName);
                     lunchFragment.setArguments(bundle);
                     rViewOne = 2;
+                    relativeLayout.setBackgroundColor(Color.argb(255,36,179,231));
                 }
                 break;
             case R.id.dinner_main:
+                if (fragmentManager.findFragmentByTag("breakfast") == null) {
+                    getFragmentManager().popBackStack();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.addToBackStack(null).add(R.id.main_fragment, dinnerFragment, "breakfast").commit();
+                    MainActivity.breakFastIsOpen = true;
+                    bundle.putStringArray("name", dinnerName);
+                    dinnerFragment.setArguments(bundle);
+                    rViewOne = 2;
+                    relativeLayout.setBackgroundColor(Color.argb(255,36,179,231));
+                }
                 break;
             case R.id.openLeftButton:
                 MainActivity.drawerLayout.openDrawer(Gravity.LEFT);

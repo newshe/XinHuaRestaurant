@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.zzz.xinhuarestaurant.application.MyApplication;
+import com.example.zzz.xinhuarestaurant.db.UserInfo;
 import com.example.zzz.xinhuarestaurant.gson.LoginJson;
 import com.example.zzz.xinhuarestaurant.util.HttpRequest;
 import com.example.zzz.xinhuarestaurant.util.PopupWindowUtil;
@@ -149,15 +150,19 @@ public class UserPassword extends AppCompatActivity implements View.OnClickListe
                 String res = response.body().string();
                 Log.i(TAG, "getLogin_status: " + res);
                 Gson gson = new Gson();
-                LoginJson login = gson.fromJson(res,LoginJson.class);
+                final LoginJson login = gson.fromJson(res,LoginJson.class);
                 if (login.getReturn_info().getStatus_code() == 4020) {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            UserInfo userInfo = new UserInfo();
+                            userInfo.setToken(login.getReturn_info().getToken());
+                            userInfo.save();
                             ToastUtil.showToast(UserPassword.this,"登陆成功",3000);
                             closeBackGroundLoading();
                             Intent intent = new Intent(UserPassword.this,MainActivity.class);
                             startActivity(intent);
+                            finish();
                         }
                     });
                 } else if (login.getReturn_info().getStatus_code() == 4035) {

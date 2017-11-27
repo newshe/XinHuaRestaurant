@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.zzz.xinhuarestaurant.application.MyApplication;
 import com.example.zzz.xinhuarestaurant.gson.AssignJson;
@@ -35,24 +36,16 @@ public class UserPicVerification extends AppCompatActivity implements View.OnKey
     //判断用户是否输入完成
     public int editNum;
 
-    public String VerifyToken;
-
     public String userEditVer;
     //返回到上一个界面
-    public ImageButton returnPhone;
+    //public ImageButton returnPhone;
     //再次请求验证码
     public Button aginRequest;
-
-    public String serverVerification = "1234";
 
     public ImageView serverVerificationImgae;
 
     //用户手机号
     private String userPhone;
-    //临时token
-    private String mTemporaryCookie;
-    //base64图片验证码
-    private String VerifyImgString;
 
     //输入的4个控件
     public EditText editOne;
@@ -67,10 +60,6 @@ public class UserPicVerification extends AppCompatActivity implements View.OnKey
         setContentView(R.layout.activity_user_pic_verification);
         Intent intent = getIntent();
         userPhone = intent.getStringExtra("phone");
-        mTemporaryCookie = intent.getStringExtra("cookie");
-        VerifyImgString = intent.getStringExtra("base64");
-        Log.i(TAG, "onCreate: " + userPhone + mTemporaryCookie );
-        Log.i(TAG, "VerifyImgString: " + VerifyImgString);
         //初始化控件
         initControl();
         getAssignCookie();
@@ -83,7 +72,12 @@ public class UserPicVerification extends AppCompatActivity implements View.OnKey
         HttpRequest.request(MyApplication.HttpUrl.assign_cookie, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ToastUtil.showToast(MyApplication.getContext(),"网络故障",3000);
+                    }
+                });
             }
 
             @Override
@@ -103,7 +97,12 @@ public class UserPicVerification extends AppCompatActivity implements View.OnKey
         HttpRequest.request(MyApplication.HttpUrl.getMake_verifyimg(cookie), new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ToastUtil.showToast(MyApplication.getContext(),"网络故障",3000);
+                    }
+                });
             }
 
             @Override
@@ -125,8 +124,8 @@ public class UserPicVerification extends AppCompatActivity implements View.OnKey
 
         TextChange textChange = new TextChange();
 
-        returnPhone = (ImageButton) findViewById(R.id.returnPhone);
-        returnPhone.setOnClickListener(this);
+//        returnPhone = (ImageButton) findViewById(R.id.returnPhone);
+//        returnPhone.setOnClickListener(this);
         aginRequest = (Button) findViewById(R.id.aginRequest);
 
         serverVerificationImgae = (ImageView) findViewById(R.id.server_Verification);
@@ -205,11 +204,11 @@ public class UserPicVerification extends AppCompatActivity implements View.OnKey
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.returnPhone:
-                Intent intent = new Intent(UserPicVerification.this,UserPhone.class);
-                startActivity(intent);
-                finish();
-                break;
+//            case R.id.returnPhone:
+//                Intent intent = new Intent(UserPicVerification.this,UserPhone.class);
+//                startActivity(intent);
+//                finish();
+                //break;
             case R.id.aginRequest:
                 editNum = 1;
                 getAssignCookie();

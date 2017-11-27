@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.zzz.xinhuarestaurant.application.MyApplication;
+import com.example.zzz.xinhuarestaurant.db.UserInfo;
 import com.example.zzz.xinhuarestaurant.gson.CompJson;
 import com.example.zzz.xinhuarestaurant.util.HttpRequest;
 import com.example.zzz.xinhuarestaurant.util.ToastUtil;
@@ -139,6 +140,7 @@ public class UserRegister extends AppCompatActivity implements View.OnClickListe
             case R.id.user_btn_continue:
                 Intent intent = new Intent(UserRegister.this, UserPhone.class);
                 startActivity(intent);
+                finish();
                 break;
             case R.id.user_btn_next_register:
                 Log.i(TAG, "onClick: " + Objects.equals(userPasswordSure, userPassword));
@@ -148,17 +150,26 @@ public class UserRegister extends AppCompatActivity implements View.OnClickListe
                     HttpRequest.request(MyApplication.HttpUrl.getSet_comp(userPassword, userPasswordSure, userPhone, userInput), new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ToastUtil.showToast(MyApplication.getContext(),"网络故障",3000);
+                                }
+                            });
                         }
 
                         @Override
                         public void onResponse(Call call, Response response) throws IOException {
                             String res = response.body().string();
                             Gson gson = new Gson();
-                            CompJson com = gson.fromJson(res, CompJson.class);
+                            final CompJson com = gson.fromJson(res, CompJson.class);
                             if (com.getReturn_info().getStatus_code() == 3240) {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
+                                        UserInfo userInfo = new UserInfo();
+                                        userInfo.setToken(com.getReturn_info().getToken());
+                                        userInfo.save();
                                         ToastUtil.showToast(UserRegister.this, "注册成功", 3000);
                                         Intent intent = new Intent(UserRegister.this, MainActivity.class);
                                         startActivity(intent);

@@ -16,9 +16,17 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.zzz.xinhuarestaurant.application.MyApplication;
 import com.example.zzz.xinhuarestaurant.fragment.BreakFastFragment;
 import com.example.zzz.xinhuarestaurant.fragment.MainFragment;
+import com.example.zzz.xinhuarestaurant.util.HttpRequest;
 import com.example.zzz.xinhuarestaurant.util.Util;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,14 +37,14 @@ public class MainActivity extends AppCompatActivity {
 
     public static DrawerLayout drawerLayout;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Util.setStatusBarColor(Color.TRANSPARENT,this,Util.TEXT_WHITE);
+        Util.setStatusBarColor(Color.TRANSPARENT, this, Util.TEXT_WHITE);
         setContentView(R.layout.activity_main);
-
-
         initControl();
+
     }
 
     private void initControl() {

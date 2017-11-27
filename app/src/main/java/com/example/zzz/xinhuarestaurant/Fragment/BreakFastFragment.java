@@ -20,12 +20,18 @@ import com.example.zzz.xinhuarestaurant.application.MyApplication;
 import com.example.zzz.xinhuarestaurant.bean.FoodBean;
 import com.example.zzz.xinhuarestaurant.R;
 import com.example.zzz.xinhuarestaurant.adapter.FoodRecyclerAdapter;
-import com.example.zzz.xinhuarestaurant.bean.FoodBeanThree;
-import com.example.zzz.xinhuarestaurant.bean.FoodBeanTwo;
-import com.example.zzz.xinhuarestaurant.util.Util;
+import com.example.zzz.xinhuarestaurant.gson.EatJson;
+import com.example.zzz.xinhuarestaurant.util.HttpRequest;
+import com.example.zzz.xinhuarestaurant.util.ToastUtil;
+import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 /**
  * Created by zzz on 2017/10/25.
@@ -34,10 +40,10 @@ import java.util.List;
 public class BreakFastFragment extends Fragment implements View.OnClickListener {
 
     public String TAG = "ppt";
-    
+
     public static List<FoodBean> foodBeanList = new ArrayList<>();
-    public List<FoodBeanTwo> foodBeanTwoList = new ArrayList<>();
-    public List<FoodBeanThree> foodBeanThreeList = new ArrayList<>();
+    public static List<FoodBean> foodBeanTwoList = new ArrayList<>();
+    public static List<FoodBean> foodBeanThreeList = new ArrayList<>();
 
     public static int recyclerView = 1;
     public Button makeSure;
@@ -71,27 +77,29 @@ public class BreakFastFragment extends Fragment implements View.OnClickListener 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.breakfast,container,false);
+        View view = inflater.inflate(R.layout.breakfast, container, false);
         breakFastOne = (RecyclerView) view.findViewById(R.id.breakfast_rv_one);
         breakFastTwo = (RecyclerView) view.findViewById(R.id.breakfast_rv_two);
         breakFastThree = (RecyclerView) view.findViewById(R.id.breakfast_rv_three);
         layoutManager = new LinearLayoutManager(getContext());
         fragmentManager = getActivity().getSupportFragmentManager();
         bundle = new Bundle();
-
         loadRv(ONE);
-        initBean();
         initControl(view);
-
+        getListOne();
         initView(view);
+
 
         return view;
 
+
     }
+
     private void loadRv(int number) {
         switch (number) {
             case 1:
                 recyclerView = 1;
+                FoodRecyclerAdapter.recycler = 1;
                 //AllOne = FoodRecyclerAdapter.all;
                 Log.i("ppt", "loadRv1: " + AllOne);
                 breakFastOne.setVisibility(View.VISIBLE);
@@ -99,14 +107,16 @@ public class BreakFastFragment extends Fragment implements View.OnClickListener 
                 breakFastThree.setVisibility(View.INVISIBLE);
                 break;
             case 2:
+                FoodRecyclerAdapter.recycler = 2;
                 recyclerView = 2;
                 //AllTwo = FoodRecyclerAdapter.all;
-                Log.i("ppt", "loadRv2: " + AllThree );
+                Log.i("ppt", "loadRv2: " + AllThree);
                 breakFastOne.setVisibility(View.INVISIBLE);
                 breakFastTwo.setVisibility(View.VISIBLE);
                 breakFastThree.setVisibility(View.INVISIBLE);
                 break;
             case 3:
+                FoodRecyclerAdapter.recycler = 3;
                 recyclerView = 3;
                 //AllThree = FoodRecyclerAdapter.all;
                 Log.i("ppt", "loadRv2: " + AllThree);
@@ -120,39 +130,6 @@ public class BreakFastFragment extends Fragment implements View.OnClickListener 
     }
 
     public void initControl(View view) {
-
-        breakFastOne.setLayoutManager(layoutManager);
-        foodAdapter = new FoodRecyclerAdapter<FoodBean>(getContext(),foodBeanList) {
-            @Override
-            public void convert(ViewHolder holder, FoodBean item, int position) {
-                holder.foodNumber.setText(item.getFoodName());
-                holder.numberView.setText("" + MyApplication.numberList.get(position));
-            }
-        };
-        breakFastOne.setAdapter(foodAdapter);
-
-        LinearLayoutManager layoutManagerTwo = new LinearLayoutManager(getContext());
-        breakFastTwo.setLayoutManager(layoutManagerTwo);
-        FoodRecyclerAdapter foodTwo = new FoodRecyclerAdapter<FoodBeanTwo>(getContext(),foodBeanTwoList) {
-            @Override
-            public void convert(ViewHolder holder, FoodBeanTwo item, int position) {
-                holder.foodNumber.setText(item.getFoodName());
-                holder.numberView.setText("" + MyApplication.numberTwoList.get(position));
-            }
-        };
-        breakFastTwo.setAdapter(foodTwo);
-
-        LinearLayoutManager layoutManagerThree = new LinearLayoutManager(getContext());
-        breakFastThree.setLayoutManager(layoutManagerThree);
-        FoodRecyclerAdapter foodThree = new FoodRecyclerAdapter<FoodBeanThree>(getContext(),foodBeanThreeList) {
-            @Override
-            public void convert(ViewHolder holder, FoodBeanThree item, int position) {
-                holder.foodNumber.setText(item.getFoodName());
-                holder.numberView.setText("" + MyApplication.numberThreeList.get(position));
-            }
-        };
-        breakFastThree.setAdapter(foodThree);
-
 
         makeSure = (Button) view.findViewById(R.id.make_sure);
         makeSure.setOnClickListener(this);
@@ -168,8 +145,46 @@ public class BreakFastFragment extends Fragment implements View.OnClickListener 
         third.setOnClickListener(this);
         //如果数据已经存在，就不需要在进行添加
         price.setText("" + FoodRecyclerAdapter.all);
-        }
+        //initRv();
+    }
 
+    public void initRv() {
+
+        breakFastOne.setLayoutManager(layoutManager);
+        foodAdapter = new FoodRecyclerAdapter<FoodBean>(getContext(), foodBeanList) {
+            @Override
+            public void convert(ViewHolder holder, FoodBean item, int position) {
+                holder.foodName.setText(item.getFoodName());
+                holder.foodNumber.setText(item.getFoodPrice());
+                holder.numberView.setText("" + MyApplication.numberList.get(position));
+            }
+        };
+        breakFastOne.setAdapter(foodAdapter);
+
+        LinearLayoutManager layoutManagerTwo = new LinearLayoutManager(getContext());
+        breakFastTwo.setLayoutManager(layoutManagerTwo);
+        FoodRecyclerAdapter foodTwo = new FoodRecyclerAdapter<FoodBean>(getContext(), foodBeanTwoList) {
+            @Override
+            public void convert(ViewHolder holder, FoodBean item, int position) {
+                holder.foodName.setText(item.getFoodName());
+                holder.foodNumber.setText(item.getFoodPrice());
+                holder.numberView.setText("" + MyApplication.numberTwoList.get(position));
+            }
+        };
+        breakFastTwo.setAdapter(foodTwo);
+
+        LinearLayoutManager layoutManagerThree = new LinearLayoutManager(getContext());
+        breakFastThree.setLayoutManager(layoutManagerThree);
+        FoodRecyclerAdapter foodThree = new FoodRecyclerAdapter<FoodBean>(getContext(), foodBeanThreeList) {
+            @Override
+            public void convert(ViewHolder holder, FoodBean item, int position) {
+                holder.foodName.setText(item.getFoodName());
+                holder.foodNumber.setText(item.getFoodPrice());
+                holder.numberView.setText("" + MyApplication.numberThreeList.get(position));
+            }
+        };
+        breakFastThree.setAdapter(foodThree);
+    }
 
     //在这里初始化fragment的主题内容
     public void initView(View view) {
@@ -178,28 +193,75 @@ public class BreakFastFragment extends Fragment implements View.OnClickListener 
         assert breakFast != null;
         mainTitle.setText(breakFast[0]);
     }
-    //为recyclerView初始化数据
-    public void initBean() {
-        if (foodBeanList.size() <= 1) {
-            for (int i = 0; i < 10; i++) {
-                FoodBean food = new FoodBean();
-                food.setFoodName("" + i + 1);
-                foodBeanList.add(food);
-            }
-        }
-        if (foodBeanTwoList.size() <= 1) {
-            for (int i = 0; i < 10; i++) {
-                FoodBeanTwo foodTwo = new FoodBeanTwo("" + i * i);
-                foodBeanTwoList.add(i,foodTwo);
-            }
-        }
-        if (foodBeanThreeList.size() <= 1) {
-            for (int i = 0; i < 10; i++) {
-                FoodBeanThree foodThree = new FoodBeanThree("" + ((i + i) *i));
-                foodBeanThreeList.add(i,foodThree);
-            }
-        }
 
+    //向服务器请求菜单数据
+    public void getListOne() {
+        HttpRequest.request(MyApplication.HttpUrl.get_Commodity(1), new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ToastUtil.showToast(MyApplication.getContext(),"网络故障",3000);
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String res = response.body().string();
+                Log.i(TAG, "get_Commodity: " + res);
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Gson gson = new Gson();
+                        EatJson eat = gson.fromJson(res, EatJson.class);
+                        if (foodBeanList.size() < 1) {
+                            for (int i = 0; i < eat.getDefault_info().size(); i++) {
+                                Log.i(TAG, "== 1: ");
+                                FoodBean food = new FoodBean();
+                                food.setFoodName("" + eat.getDefault_info().get(i).getCm_title());
+                                food.setFoodPrice(eat.getDefault_info().get(i).getCm_price());
+                                food.setFoodImage(eat.getDefault_info().get(i).getCm_thumb());
+                                if (Integer.parseInt(eat.getDefault_info().get(i).getCm_class()) == 1) {
+                                    foodBeanList.add(food);
+                                } else if (Integer.parseInt(eat.getDefault_info().get(i).getCm_class()) == 2) {
+                                    foodBeanTwoList.add(food);
+                                } else if (Integer.parseInt(eat.getDefault_info().get(i).getCm_class()) == 3) {
+                                    foodBeanThreeList.add(food);
+                                }
+                            }
+                        } else if (foodBeanList.size() >= 1) {
+                            int one = 0;
+                            int two = 0;
+                            int three = 0;
+                            for (int i = 0; i < eat.getDefault_info().size(); i++) {
+                                Log.i(TAG, "== 1: ");
+                                FoodBean food = new FoodBean();
+                                food.setFoodName("" + eat.getDefault_info().get(i).getCm_title());
+                                food.setFoodPrice(eat.getDefault_info().get(i).getCm_price());
+                                food.setFoodImage(eat.getDefault_info().get(i).getCm_thumb());
+                                Log.i(TAG, "run: " + one);
+                                if (Integer.parseInt(eat.getDefault_info().get(i).getCm_class()) == 1) {
+                                    foodBeanList.set(one, food);
+                                    one++;
+                                } else if (Integer.parseInt(eat.getDefault_info().get(i).getCm_class()) == 2) {
+                                    foodBeanTwoList.set(two, food);
+                                    two++;
+                                } else if (Integer.parseInt(eat.getDefault_info().get(i).getCm_class()) == 3) {
+                                    foodBeanThreeList.set(three, food);
+                                    three++;
+                                }
+                            }
+                        }
+                        initRv();
+                        first.setText(eat.get_$0().getClass_title());
+                        second.setText(eat.get_$1().getClass_title());
+                        third.setText(eat.get_$2().getClass_title());
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -232,8 +294,8 @@ public class BreakFastFragment extends Fragment implements View.OnClickListener 
                 //getFragmentManager().popBackStack();
                 SureFragment sureFragment = new SureFragment();
                 FragmentTransaction fragment = fragmentManager.beginTransaction();
-                fragment.addToBackStack(null).add(R.id.main_fragment,sureFragment,"breakfast_sure").commit();
-                bundle.putDouble("price",FoodRecyclerAdapter.all);
+                fragment.addToBackStack(null).add(R.id.main_fragment, sureFragment, "breakfast_sure").commit();
+                bundle.putDouble("price", FoodRecyclerAdapter.all);
                 sureFragment.setArguments(bundle);
                 break;
         }
@@ -248,6 +310,6 @@ public class BreakFastFragment extends Fragment implements View.OnClickListener 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        MainFragment.relativeLayout.setBackgroundColor(Color.argb(255,247,206,112));
+        MainFragment.relativeLayout.setBackgroundColor(Color.argb(255, 247, 206, 112));
     }
 }

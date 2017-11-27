@@ -73,7 +73,12 @@ public class LeftFragment extends Fragment {
         HttpRequest.request(MyApplication.getWeatherUrl("成都"), new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ToastUtil.showToast(MyApplication.getContext(),"网络故障",3000);
+                    }
+                });
             }
 
             @Override
